@@ -393,6 +393,11 @@ void imagePointsHandler(const sensor_msgs::PointCloud2ConstPtr& imagePoints2)
       double ty = transform[4];
       double tz = transform[5];
 
+      if (ipr.s < 0.1 || ipr.s > 500) {
+        ipr.s = 0;
+        ipr.v = 0;
+      }
+
       if (fabs(ipr.v) < 0.5) {
 
         ipr2.x = v0*(crz*srx*(tx - tz*u1) - crx*(ty*u1 - tx*v1) + srz*srx*(ty - tz*v1)) 
